@@ -1,9 +1,9 @@
-<?php include './temp/header.php'?>
+<?php 
+    include './temp/header.php';
 
-<?php include './functions/database.php' ?>
-<?php
-$conn = dbConnect('root','','blog');
+    include './functions/database.php' ;
 
+  
 
 
 
