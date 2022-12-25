@@ -1,6 +1,31 @@
+
 ul {
     list-style: none;
 }
+
 li {
     display: inline-block;
+}
+
+wrapper {
+    width: 90vw;
+    height: 100vh;
+    display: grid;
+}
+table{
+    width: 90%;
+}
+table, th, td {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border: 1px solid black;
+    border-collapse: collapse;
+
+}
+#name{
+    width: 20%;
+}
+
+input{
+    margin-left: 3rem;
 }
