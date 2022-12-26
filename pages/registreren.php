@@ -1,29 +1,8 @@
 <?php
-  include   './functions/database.php';
+  include   ('./functions/database.php');
 
-  $conn = dbConnect('root','','blog');
+  $conn = dbConnect('root','','blog','127.0.0.1');
 
-
-// Check if the form has been submitted
-if (isset($_POST['email']) && isset($_POST['password'])) {
-  // Get the email and password values from the form
-  $email = $_POST['email'];
-  $password = $_POST['password'];
-
-
-  // Check if the email already exists in the database
-  $result = mysqli_query($conn, "SELECT * FROM users WHERE email='$email'");
-  if (mysqli_num_rows($result) > 0) {
-    // Email already exists, display an error message
-    echo "Error: Email already exists.";
-  } else {
-    // Email does not exist, insert the new user into the database
-    $insert = "INSERT INTO users (email, password) VALUES ('$email', '$password')";
-    mysqli_query($conn, $insert);
-    echo "Success: User registered.";
-   
-  }
-}
 ?>
   <html lang="en">
   <head>
@@ -43,9 +22,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
   <body class="text-center">
 <form  action ="" method="post">
-
-
-            
+ 
             <?php
                 /* if(!empty($msg = flash('msg')))
                  {
@@ -64,4 +41,4 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 
          </form>
          </div>
-                </body>
+  <?php include './temp/footer.php' ?>
