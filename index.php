@@ -1,12 +1,18 @@
 <?php 
-    include './temp/header.php';
+include './vendor/autoload.php';
+include './functions/helpers.php';
+include './functions/database.php';
 
-    include './functions/database.php' ;
+registerExpectionHandler();
+$conn = dbConnect(
+    user :'root',
+    pass:'',
+    db: 'blog',
+);
 
-  
-
-
-
+if(!isset($conn)){
+     echo '<h2> no Database Connection</h2>';
+}
 
 ?>
 
@@ -32,6 +38,5 @@
     </div>
 </div>
 
-<?php include './temp/footer.php' ?>
 
 

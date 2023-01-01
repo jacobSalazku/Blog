@@ -1,4 +1,10 @@
+<?php
 
+
+
+
+
+?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -31,9 +37,9 @@
           <label for="">E-mail</label>
             <input type="text" name ="email">
           <label for=""> Passwoord</label>
-            <input type="text"name ="passwoord" a>
+            <input type="password" name ="passwoord" a>
             <button type="submit">Button</button>
-            <p>als je nog geen accouht hebt registreer <a href="/pages/registreren.php">hier</a></p>
+            <p>als je nog geen accouht hebt registreer <a href="/pages/signin.php">hier</a></p>
     </form>
     </div>
   </body>
