@@ -1,42 +1,25 @@
-<?php 
-include './vendor/autoload.php';
-include './functions/helpers.php';
-include './functions/database.php';
+<?php
 
-registerExpectionHandler();
-$conn = dbConnect(
-    user :'root',
-    pass:'',
-    db: 'blog',
-);
 
-if(!isset($conn)){
-     echo '<h2> no Database Connection</h2>';
-}
-
+    require('./config/db.php');
 ?>
 
+<?php require('./includes/header.html'); ?>
 
-
-<div>
-    <div class="wrapper">
-        <h2>Blog</h2>
-
-        <table>
-            <tr>
-                <td width="20%"><b> title</b></td>
-
-            </tr>
-        
-            <tr>
-                <td>Row 2, Column 1</td>
-                <td>Row 2, Column 2</td>
-            </tr>
-        </table>
-
-
+<div class="container">
+    <div class="card bg-light mb-3">
+       <div class="card-header">
+           <h5>Welcome Guest</h5>
+       </div>
+        <div class="card-body">
+            <h5>PLease Login</h5>
+        </div>
     </div>
 </div>
+
+
+
+<?php require('./includes/footer.html'); ?>
 
 
 
