@@ -8,6 +8,7 @@ require('./config/db.php');
        // $username= $_POST['username'];
       //  $email= $_POST['email'];
        // $password= $_POST['password'];
+       // beveiligen tegen xss en sql  
         $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
         $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
         $password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
@@ -15,13 +16,20 @@ require('./config/db.php');
 
 
         if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+            //query zoeken of de email al in de database voorkomt
             $stmt = $conn -> prepare('SELECT * FROM users WHERE email = ?');
             $stmt -> execute([$email]);
             $totalUsers = $stmt -> rowCount();
-            echo $totalUsers;
+            echo $totalUsers. '<br>';
         }
-
-    }
+        if($totalUsers> 0){
+            echo "Email already taken";
+        }
+        else{
+            $stmt = $conn -> prepare('INSERT INTO users(username,email,password) VALUES (?,?,? )');
+            $stmt -> execute([$username,$email,$password]);
+        }
+    }   
 
 
 
