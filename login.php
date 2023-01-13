@@ -1,27 +1,36 @@
 <?php
-require('./config/db.php');
+
     //als $_post register niet leeg is
-    if(isset($_POST['register'])){
+    if(isset($_POST['login'])){
         //database connect
+        require('./config/db.php');
 
-
-       // $username= $_POST['username'];
-      //  $email= $_POST['email'];
-       // $password= $_POST['password'];
        // beveiligen tegen xss en sql  
-        $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
         $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
         $password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
-        $passwordhashed = password_hash($password,PASSWORD_DEFAULT);
+      
+      // querry checken of email in de database voorkomt
+        $stmt = $conn-> prepare('SELECT * users WHERE email = ?');
+        $stmt -> execute([$email]);
+        $user = $stmt -> fetch();
+
+        if(isset($user)){
+            if(password_verify($password,$user -> password)){
+                echo "password is correct";
+            }else {
+                echo "the login email or password is wrong";
+            }
+        }
 
 
 
+        /*
         if(filter_var($email, FILTER_VALIDATE_EMAIL)){
             //query zoeken of de email al in de database voorkomt
             $stmt = $conn -> prepare('SELECT * FROM users WHERE email = ?');
             $stmt -> execute([$email]);
             $totalUsers = $stmt -> rowCount();
-           // echo $totalUsers. '<br>';
+          
         }
         
         if($totalUsers> 0){
@@ -32,6 +41,7 @@ require('./config/db.php');
             $stmt = $conn -> prepare('INSERT INTO users(username,email,password) VALUES (?,?,? )');
             $stmt -> execute([$username,$email,$passwordhashed]);
         }
+        */
     }   
 
 
