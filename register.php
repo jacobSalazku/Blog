@@ -12,6 +12,7 @@ require('./config/db.php');
         $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
         $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
         $password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
+        $passwordhashed = password_hash($password,PASSWORD_DEFAULT);
 
 
 
@@ -20,14 +21,16 @@ require('./config/db.php');
             $stmt = $conn -> prepare('SELECT * FROM users WHERE email = ?');
             $stmt -> execute([$email]);
             $totalUsers = $stmt -> rowCount();
-            echo $totalUsers. '<br>';
+           // echo $totalUsers. '<br>';
         }
+        
         if($totalUsers> 0){
-            echo "Email already taken";
+            
+            $emailTaken= "Email already taken";
         }
         else{
             $stmt = $conn -> prepare('INSERT INTO users(username,email,password) VALUES (?,?,? )');
-            $stmt -> execute([$username,$email,$password]);
+            $stmt -> execute([$username,$email,$passwordhashed]);
         }
     }   
 
@@ -51,6 +54,10 @@ require('./config/db.php');
                 <div class="from-group">
                     <label for="email">E-mail</label>
                     <input required type="email" name="email"  class="form-control">
+                    <br />
+                    <?php if (isset($emailTaken)) :?>
+                        <p style="color:red"><?php echo  $emailTaken; ?></p>
+                        <?php endif; ?>
                 </div>
 
                 <div class="from-group">
