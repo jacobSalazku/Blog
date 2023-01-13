@@ -1,13 +1,11 @@
 <?php
-require('./config/db.php');
+
     //als $_post register niet leeg is
     if(isset($_POST['register'])){
+
         //database connect
+        require('./config/db.php');
 
-
-       // $username= $_POST['username'];
-      //  $email= $_POST['email'];
-       // $password= $_POST['password'];
        // beveiligen tegen xss en sql  
         $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
         $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
@@ -21,7 +19,7 @@ require('./config/db.php');
             $stmt = $conn -> prepare('SELECT * FROM users WHERE email = ?');
             $stmt -> execute([$email]);
             $totalUsers = $stmt -> rowCount();
-           // echo $totalUsers. '<br>';
+       
         }
         
         if($totalUsers> 0){
